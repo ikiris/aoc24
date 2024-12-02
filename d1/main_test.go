@@ -57,7 +57,7 @@ func TestP2(t *testing.T) {
 		{
 			"aocd1",
 			testgeneric.GetHandle(t, "testdata/d1p1.txt"),
-			0,
+			23177084,
 			false,
 		},
 	}
