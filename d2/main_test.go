@@ -7,7 +7,7 @@ import (
 	"github.com/ikiris/aoc24/generic/testgeneric"
 )
 
-func TestD1P1(t *testing.T) {
+func TestD2P1(t *testing.T) {
 	tests := []struct {
 		name    string
 		data    io.Reader
@@ -17,13 +17,13 @@ func TestD1P1(t *testing.T) {
 		{
 			"basic",
 			testgeneric.GetHandle(t, "testdata/basic.txt"),
-			11,
+			2,
 			false,
 		},
 		{
-			"aocd1",
-			testgeneric.GetHandle(t, "testdata/d1p1.txt"),
-			2057374,
+			"d2p1",
+			testgeneric.GetHandle(t, "testdata/d2p1.txt"),
+			0,
 			false,
 		},
 	}
@@ -41,7 +41,7 @@ func TestD1P1(t *testing.T) {
 	}
 }
 
-func TestD1P2(t *testing.T) {
+func TestD2P2(t *testing.T) {
 	tests := []struct {
 		name    string
 		data    io.Reader
@@ -51,13 +51,13 @@ func TestD1P2(t *testing.T) {
 		{
 			"basic",
 			testgeneric.GetHandle(t, "testdata/basic.txt"),
-			31,
+			4,
 			false,
 		},
 		{
-			"aocd1",
-			testgeneric.GetHandle(t, "testdata/d1p1.txt"),
-			23177084,
+			"d2p1",
+			testgeneric.GetHandle(t, "testdata/d2p1.txt"),
+			311,
 			false,
 		},
 	}
