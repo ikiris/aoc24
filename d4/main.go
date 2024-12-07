@@ -127,3 +127,105 @@ func (t *tracker) appendTrack(tr *generic.Trie, row, col int, v track) {
 		trie: tr,
 	})
 }
+
+type xMas struct {
+	pos key
+	v   rune
+}
+
+type xPattern []xMas
+
+func patternXGen(words []string) []xPattern {
+	base := []key{
+		{0, 0},
+		{-1, -1},
+		{-2, -2},
+		{0, -2},
+		{-2, 0},
+	}
+
+	r := []xPattern{}
+
+	for w1, w := range words {
+		fac := w1 * 2
+
+		r = append(r, make([]xMas, len(base)), make([]xMas, len(base)))
+		for i, l := range w {
+			r[0+fac][i].pos = base[i]
+			r[1+fac][i].pos = base[i]
+
+			r[0+fac][i].v = l
+			r[1+fac][i].v = l
+		}
+
+		for i2, w2 := range words {
+			w2l := []rune(w2)
+
+			r[(w1*2)+i2][3].pos = base[3]
+			r[(w1*2)+i2][3].v = w2l[0]
+
+			r[(w1*2)+i2][4].pos = base[4]
+			r[(w1*2)+i2][4].v = w2l[2]
+		}
+	}
+
+	return r
+}
+
+func p2(r io.Reader) (int64, error) {
+	s := bufio.NewScanner(r)
+
+	words := []string{"MAS", "SAM"}
+
+	arr := [4][]rune{}
+	modVal := len(arr)
+
+	patterns := patternXGen(words)
+
+	checkX := func(row, col int) bool {
+	continueB:
+		for _, xp := range patterns {
+			for _, xM := range xp {
+				pos := xM.pos
+				pos.row += row
+				pos.col += col
+
+				if pos.row < 0 || pos.col < 0 {
+					continue continueB
+				}
+
+				pos.row = pos.row % modVal
+
+				if arr[pos.row][pos.col] != xM.v {
+					continue continueB
+				}
+			}
+
+			return true
+		}
+
+		return false
+	}
+
+	var ttl int64
+
+	row := 0
+
+	for s.Scan() {
+		rm := row % modVal
+		arr[rm] = []rune{}
+
+		l := s.Text()
+		for col, v := range l {
+			arr[rm] = append(arr[rm], v)
+
+			if checkX(row, col) {
+				ttl++
+			}
+		}
+
+		row++
+	}
+
+	return ttl, nil
+}
