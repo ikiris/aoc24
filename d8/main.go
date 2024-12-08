@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"io"
-	"math"
 	"unicode"
 )
 
@@ -82,16 +81,6 @@ func p1(r io.Reader) (int64, error) {
 func aNodes(a1, a2 antenna) []key {
 	rd, cd := a2.pos.row-a1.pos.row, a2.pos.col-a1.pos.col
 
-	rd, cd = int(math.Abs(float64(rd))), int(math.Abs(float64(cd)))
-
-	if a1.pos.row > a2.pos.row {
-		rd = -rd
-	}
-
-	if a1.pos.col > a2.pos.col {
-		cd = -cd
-	}
-
 	return []key{
 		{a1.pos.row - rd, a1.pos.col - cd},
 		{a2.pos.row + rd, a2.pos.col + cd},
@@ -100,16 +89,6 @@ func aNodes(a1, a2 antenna) []key {
 
 func aNodesRepeat(a1, a2 antenna, maxRow, maxCol int) []key {
 	rd, cd := a2.pos.row-a1.pos.row, a2.pos.col-a1.pos.col
-
-	rd, cd = int(math.Abs(float64(rd))), int(math.Abs(float64(cd)))
-
-	if a1.pos.row > a2.pos.row {
-		rd = -rd
-	}
-
-	if a1.pos.col > a2.pos.col {
-		cd = -cd
-	}
 
 	r := []key{}
 
